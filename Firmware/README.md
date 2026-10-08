@@ -1,4 +1,4 @@
-# ESP32-WROOM-DA Firmware
+# ESP32-WROOM-DA Low Power Weather Station Firmware
 
 This folder contains the main Arduino firmware for the **ESP32 Low Power Weather Station** project.
 
@@ -32,12 +32,33 @@ The firmware is designed for:
 - INA219 Current and Voltage Sensor Module
 - DFRobot Gravity: Analog SHT30 Temperature & Humidity Sensor (DFR0588)
 - Samsung INR18650-35E 3500mAh Rechargeable Lithium-Ion Battery
-- Push Button Wake-Up Control
-- LED Status Indicator
+- Tactile Push Button Switch
+- 5mm LED Indicator
+
+---
+
+## Pin Configuration
+
+| Component | ESP32-WROOM-DA Pin |
+|---|---|
+| INA219 SDA | GPIO21 |
+| INA219 SCL | GPIO22 |
+| SHT30 Temperature Output | GPIO35 |
+| SHT30 Humidity Output | GPIO34 |
+| LED Indicator | GPIO25 |
+| Push Button | GPIO27 |
 
 ---
 
 # Main Features
+- Temperature and humidity measurement using the DFRobot Gravity Analog SHT30 (DFR0588)
+- Battery voltage, current, and power monitoring using INA219
+- Deep sleep power management
+- Wi-Fi Access Point dashboard
+- Battery history logging using LittleFS
+- CSV data generation
+
+---
 
 ## Low Power Operation
 
