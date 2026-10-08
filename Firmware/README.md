@@ -63,9 +63,23 @@ These values are recorded to evaluate the energy performance of the system and a
 
 The project uses the **DFRobot Gravity: Analog SHT30 Temperature & Humidity Sensor (DFR0588)**.
 
-Unlike a standard digital SHT30 module, the DFR0588 provides calibrated analog voltage outputs. The sensor internally performs signal processing before sending analog voltage signals to the ESP32 ADC.
+The DFR0588 is an analog-output version of the SHT30 sensor. Unlike a standard digital SHT30 module, this sensor provides calibrated analog voltage outputs that represent temperature and humidity measurements.
 
-The ESP32 reads these analog voltages and converts them into temperature and humidity values using the sensor transfer equations.
+The ESP32-WROOM-DA reads these analog voltage signals using its ADC pins and converts them into temperature and humidity values using the sensor transfer equations.
+
+The measurement process is:
+
+```text
+DFR0588 Sensor
+      ↓
+Analog Voltage Output
+      ↓
+ESP32 ADC Reading
+      ↓
+Voltage Conversion Formula
+      ↓
+Temperature and Humidity Values
+```
 
 Temperature conversion:
 
@@ -79,7 +93,7 @@ Humidity conversion:
 Humidity (%RH) = -12.5 + (41.667 × Voltage)
 ```
 
-The converted environmental values are stored together with battery measurements for long-term monitoring and analysis.
+The converted environmental data is stored together with battery measurements for long-term monitoring and battery performance analysis.
 
 ---
 
@@ -139,23 +153,33 @@ The dashboard allows users to monitor the system without requiring internet acce
 
 ---
 
-# Required Libraries
+## Required Libraries
 
-Install these libraries before uploading:
+Install these libraries before uploading the firmware:
 
-- Adafruit INA219
-- ArduinoJson
-- ESP32 Arduino Core
+### External Libraries
 
-The ESP32 built-in libraries used are:
+- **Adafruit INA219**  
+  Used to communicate with the INA219 current and voltage sensor module.
 
-- WiFi.h
-- WebServer.h
-- Wire.h
-- LittleFS.h
+- **ArduinoJson**  
+  Used to create JSON responses for the web API and send sensor data to the webpage.
 
-No additional library is required for the DFR0588 sensor because it provides analog voltage output that is directly read using the ESP32 ADC.
+- **ESP32 Arduino Core**  
+  Required for ESP32-WROOM-DA board support, including Wi-Fi, GPIO control, and deep sleep features.
 
+### Built-in ESP32 Libraries
+
+The following libraries are included with the ESP32 Arduino Core:
+
+- `WiFi.h` — Creates the ESP32 Wi-Fi Access Point and manages wireless communication.
+- `WebServer.h` — Creates the local web server used by the dashboard.
+- `Wire.h` — Enables I2C communication with the INA219 sensor.
+- `LittleFS.h` — Provides internal flash storage for saving battery history logs.
+
+### Sensor Library Information
+
+The **DFRobot Gravity: Analog SHT30 Temperature & Humidity Sensor (DFR0588)** does not require an additional library because it provides analog voltage outputs. The ESP32 reads these signals using its ADC and converts them into temperature and humidity values using the sensor transfer equations.
 ---
 
 # Upload Instructions
